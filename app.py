@@ -8,9 +8,11 @@ st.title('Counter Example')
 st.write(st.session_state)
 st.write(str(len(st.session_state)))
 
-if count not in st.session_state:
+# if count not in st.session_state:
+if len(st.session_state) <= 0:
     st.session_state.count = 0
     st.session_state.last_updated = datetime.time(0,0)
+    st.write(st.session_state)
 
 def update_counter():
     st.session_state.count += st.session_state.increment_value
