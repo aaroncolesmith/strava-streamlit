@@ -5,6 +5,8 @@ import datetime
 
 st.title('Counter Example')
 
+st.write(st.session_state)
+
 if count not in st.session_state:
     st.session_state.count = 0
     st.session_state.last_updated = datetime.time(0,0)
