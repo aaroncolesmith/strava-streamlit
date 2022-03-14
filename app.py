@@ -114,9 +114,14 @@ PAGES = {
 #     st.write(option_selected)
 
 
-
+options = list(PAGES.keys())
 query_params = st.experimental_get_query_params()
-query_option = query_params['page'][0]
+try:
+    query_option = query_params['page'][0]
+except:
+    st.experimental_set_query_params(page=options[1])
+    query_params = st.experimental_get_query_params()
+
 
 st.write(query_params)
 
