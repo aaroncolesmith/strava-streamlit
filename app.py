@@ -121,7 +121,7 @@ try:
 except:
     st.experimental_set_query_params(page=pages[0])
     query_params = st.experimental_get_query_params()
-
+    query_option = query_params['page'][0]
 st.write(query_params)
 
 
