@@ -63,6 +63,9 @@ try:
     option_selected = st.sidebar.selectbox('Pick option',
                                             options,
                                             index=options.index(query_option))
+    st.write(option_selected)
+    st.write(PAGES[option_selected])
+
     if option_selected:
         st.experimental_set_query_params(option=option_selected)
         st.write(option_selected)
@@ -80,6 +83,10 @@ except: # catch exception and set query param to predefined value
     option_selected = st.sidebar.selectbox('Pick option',
                                             options,
                                             index=options.index(query_option))
+
+    st.write(option_selected)
+    st.write(PAGES[option_selected])
+    
     if option_selected:
         st.experimental_set_query_params(option=option_selected)
         st.write(option_selected)
