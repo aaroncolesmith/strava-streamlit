@@ -1,11 +1,28 @@
 import streamlit as st
 
-st.title('Counter Example')
-if 'count' not in st.session_state:
-    st.session_state.count = 0
+# query params exist
+try:
+    options = ['cat', 'dog', 'mouse', 'bat', 'duck']
 
-increment = st.button('Increment')
-if increment:
-    st.session_state.count += 1
+    query_params = st.experimental_get_query_params()
+    query_option = query_params['option'][0] #throws an exception when visiting http://host:port
 
-st.write('Count = ', st.session_state.count)
+    option_selected = st.sidebar.selectbox('Pick option',
+                                            options,
+                                            index=options.index(query_option))
+    if option_selected:
+        st.experimental_set_query_params(option=option_selected)
+
+# run when query params don't exist. e.g on first launch
+except: # catch exception and set query param to predefined value
+    options = ['cat', 'dog', 'mouse', 'bat', 'duck']
+    st.experimental_set_query_params(option=options[1]) # defaults to dog
+
+    query_params = st.experimental_get_query_params()
+    query_option = query_params['option'][0]
+
+    option_selected = st.sidebar.selectbox('Pick option',
+                                            options,
+                                            index=options.index(query_option))
+    if option_selected:
+        st.experimental_set_query_params(option=option_selected)
