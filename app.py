@@ -11,11 +11,13 @@ PAGES = {
 
 st.sidebar.title('Navigation')
 # st.experimental_set_query_params(option=options[1])
-st.experimental_set_query_params()
+query_params=st.experimental_set_query_params()
+
 sel = st.sidebar.radio("Go to", list(PAGES.keys()))
 page = PAGES[sel]
 
 st.write(page)
+st.experimental_set_query_params(page=page)
 
 
 
