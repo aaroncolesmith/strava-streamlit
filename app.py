@@ -29,9 +29,11 @@ try:
 except:
 
     options = list(PAGES.keys())
-
+    st.write(options)
     st.experimental_set_query_params(option=options[1])
-    query_params=st.experimental_set_query_params()
+
+
+    query_params = st.experimental_get_query_params()
     query_option = query_params['option'][0]
 
     st.sidebar.title('Navigation')
