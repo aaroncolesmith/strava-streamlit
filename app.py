@@ -1,7 +1,5 @@
 import streamlit as st
 
-
-
 PAGES = {
 "About": 'about',
 "Experience": 'experience',
@@ -9,16 +7,45 @@ PAGES = {
 "Bovada": 'bovada'
 }
 
-st.sidebar.title('Navigation')
-# st.experimental_set_query_params(option=options[1])
-query_params=st.experimental_set_query_params()
 
-sel = st.sidebar.radio("Go to", list(PAGES.keys()))
-page = PAGES[sel]
+try:
+    options = list(PAGES.keys())
+    query_params=st.experimental_set_query_params()
+    query_option = query_params['option'][0]
 
-st.write(page)
-st.experimental_set_query_params(page=page)
+    st.sidebar.title('Navigation')
+    option_selected = st.sidebar.selectbox('Pick option',
+                                            options,
+                                            index=options.index(query_option))
 
+    
+    # sel = st.sidebar.radio("Go to", list(PAGES.keys()))
+    if option_selected:
+        page = PAGES[option_selected]
+
+        st.write(page)
+        st.experimental_set_query_params(option=option_selected)
+
+except:
+
+    options = list(PAGES.keys())
+
+    st.experimental_set_query_params(option=options[1])
+    query_params=st.experimental_set_query_params()
+    query_option = query_params['option'][0]
+
+    st.sidebar.title('Navigation')
+    option_selected = st.sidebar.selectbox('Pick option',
+                                            options,
+                                            index=options.index(query_option))
+
+    
+    # sel = st.sidebar.radio("Go to", list(PAGES.keys()))
+    if option_selected:
+        page = PAGES[option_selected]
+
+        st.write(page)
+        st.experimental_set_query_params(option=option_selected)
 
 
 
