@@ -74,7 +74,7 @@ try:
 except: # catch exception and set query param to predefined value
     # options = ['cat', 'dog', 'mouse', 'bat', 'duck']
     options = list(PAGES.keys())
-    st.experimental_set_query_params(page=options[1]) # defaults to dog
+    st.experimental_set_query_params(page=options[0]) # defaults to dog
 
     query_params = st.experimental_get_query_params()
     query_option = query_params['page'][0]
