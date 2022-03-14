@@ -1,11 +1,11 @@
 import streamlit as st
 
-# PAGES = {
-# "About": 'about',
-# "Experience": 'experience',
-# "Projects": 'projects',
-# "Bovada": 'bovada'
-# }
+PAGES = {
+"About": 'about',
+"Experience": 'experience',
+"Projects": 'projects',
+"Bovada": 'bovada'
+}
 
 
 # try:
@@ -53,7 +53,8 @@ import streamlit as st
 
 # query params exist
 try:
-    options = ['cat', 'dog', 'mouse', 'bat', 'duck']
+    # options = ['cat', 'dog', 'mouse', 'bat', 'duck']
+    options=list(PAGES.keys())
 
     query_params = st.experimental_get_query_params()
     query_option = query_params['option'][0] #throws an exception when visiting http://host:port
@@ -67,7 +68,8 @@ try:
 
 # run when query params don't exist. e.g on first launch
 except: # catch exception and set query param to predefined value
-    options = ['cat', 'dog', 'mouse', 'bat', 'duck']
+    # options = ['cat', 'dog', 'mouse', 'bat', 'duck']
+    options = list(PAGES.keys())
     st.experimental_set_query_params(option=options[1]) # defaults to dog
 
     query_params = st.experimental_get_query_params()
