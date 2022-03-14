@@ -67,14 +67,14 @@ try:
     st.write(PAGES[option_selected])
 
     if option_selected:
-        st.experimental_set_query_params(option=option_selected)
+        st.experimental_set_query_params(page=option_selected)
         st.write(option_selected)
 
 # run when query params don't exist. e.g on first launch
 except: # catch exception and set query param to predefined value
     # options = ['cat', 'dog', 'mouse', 'bat', 'duck']
     options = list(PAGES.keys())
-    st.experimental_set_query_params(option=options[1]) # defaults to dog
+    st.experimental_set_query_params(page=options[1]) # defaults to dog
 
     query_params = st.experimental_get_query_params()
     query_option = query_params['option'][0]
@@ -88,5 +88,5 @@ except: # catch exception and set query param to predefined value
     st.write(PAGES[option_selected])
     
     if option_selected:
-        st.experimental_set_query_params(option=option_selected)
+        st.experimental_set_query_params(page=option_selected)
         st.write(option_selected)
