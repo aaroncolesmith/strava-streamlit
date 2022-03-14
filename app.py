@@ -66,8 +66,10 @@ try:
     st.write(option_selected)
     st.write(PAGES[option_selected])
 
+    page_selected = PAGES[option_selected]
+
     if option_selected:
-        st.experimental_set_query_params(page=option_selected)
+        st.experimental_set_query_params(page=page_selected)
         st.write(option_selected)
 
 # run when query params don't exist. e.g on first launch
@@ -86,7 +88,9 @@ except: # catch exception and set query param to predefined value
 
     st.write(option_selected)
     st.write(PAGES[option_selected])
+
+    page_selected = PAGES[option_selected]
     
     if option_selected:
-        st.experimental_set_query_params(page=option_selected)
+        st.experimental_set_query_params(page=page_selected)
         st.write(option_selected)
