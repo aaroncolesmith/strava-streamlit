@@ -63,6 +63,7 @@ try:
                                             index=options.index(query_option))
     if option_selected:
         st.experimental_set_query_params(option=option_selected)
+        st.write(option_selected)
 
 # run when query params don't exist. e.g on first launch
 except: # catch exception and set query param to predefined value
@@ -77,3 +78,4 @@ except: # catch exception and set query param to predefined value
                                             index=options.index(query_option))
     if option_selected:
         st.experimental_set_query_params(option=option_selected)
+        st.write(option_selected)
