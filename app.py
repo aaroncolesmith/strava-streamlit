@@ -134,5 +134,5 @@ st.write(page_selected)
 st.write(PAGES[page_selected])
 
 if page_selected:
-    st.experimental_set_query_params(page=PAGES[page_selected])
+    st.experimental_set_query_params(page=page_selected)
 
