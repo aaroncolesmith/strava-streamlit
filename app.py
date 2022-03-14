@@ -77,7 +77,7 @@ except: # catch exception and set query param to predefined value
     st.experimental_set_query_params(page=options[1]) # defaults to dog
 
     query_params = st.experimental_get_query_params()
-    query_option = query_params['option'][0]
+    query_option = query_params['page'][0]
 
     st.sidebar.title('Navigation')
     option_selected = st.sidebar.selectbox('Pick option',
