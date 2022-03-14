@@ -129,7 +129,7 @@ st.sidebar.title('Navigation')
 st.write(query_option)
 page_selected = st.sidebar.selectbox('Pick option',
                                         pages,
-                                        index=pages.index(query_option))
+                                        index=pages.index(page_selected))
 
 
 st.write(page_selected)
