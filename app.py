@@ -21,11 +21,14 @@ st.write(query_params)
 
 st.sidebar.title('Navigation')
 st.write(query_option)
-query_option = query_option.title()
-st.write(query_option)
-page_selected = st.sidebar.selectbox('Pick option',
-                                        pages,
-                                        index=pages.index(query_option))
+
+if query_option not in pages:
+    st.write('nope')
+else:
+    st.write('yep')
+    page_selected = st.sidebar.selectbox('Pick option',
+                                            pages,
+                                            index=pages.index(query_option))
 
 
 st.write(page_selected)
