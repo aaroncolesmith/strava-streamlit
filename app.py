@@ -24,6 +24,10 @@ st.write(query_option)
 
 if query_option not in pages:
     st.write('nope')
+    if query_option.title() in pages:
+        query_option = query_option.title()
+    else:
+        query_option = pages[0]
 else:
     st.write('yep')
     page_selected = st.sidebar.selectbox('Pick option',
