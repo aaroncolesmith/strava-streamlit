@@ -6,6 +6,12 @@ import pandas as pd
 
 def main():
     df = pd.read_csv('https://raw.githubusercontent.com/aaroncolesmith/portland_crime_map/main/data.csv')
+    #Calculate the month from a datetime column
+    df['MONTH'] = df['DATE'].apply(lambda x: x.split('/')[0])
+
+    #Calculate the day of week from a datetimecolumn
+    df['DAY_OF_WEEK'] = df['DATE'].apply(lambda x: x.split('/')[1])
+
     st.write(df.tail(5))
 
     st.title('Portland Crime Map')
