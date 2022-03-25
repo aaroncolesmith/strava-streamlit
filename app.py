@@ -9,7 +9,7 @@ def main():
     st.title('Portland Crime Map')
     st.markdown('This app is a Streamlit dashboard that shows the number of crimes in Portland, Oregon.')
 
-    st.markdown('Updated as of: ' + pd.to_datetime(df['DATE']).max().dt.localize('US/Pacific').strftime('%B %d, %Y'))
+    st.markdown('Updated as of: ' + pd.to_datetime(df['DATE']).max())
 
     st.subheader('Crime Counts by Type')
     st.write(df.groupby('CRIME').size().sort_values(ascending=False).head(10))
