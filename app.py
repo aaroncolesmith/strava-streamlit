@@ -6,7 +6,11 @@ import pandas as pd
 
 def main():
     df = pd.read_csv('https://raw.githubusercontent.com/aaroncolesmith/portland_crime_map/main/data.csv')
+    st.write(df.head(5))
     df['DATE'] = pd.to_datetime(df['DATE'],errors='coerce')
+    st.write(df.head(5))
+    df=df.sort_values(by='DATE', inplace=True)
+    st.write(df.head(5))
     df['DATE'] = df['DATE'].dt.tz_localize(None)
     # df['DATE'] = df['DATE'].dt.tz_localize('UTC').dt.tz_convert('US/Pacific')
     
