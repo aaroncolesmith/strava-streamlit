@@ -8,9 +8,12 @@ def main():
     df = pd.read_csv('https://raw.githubusercontent.com/aaroncolesmith/portland_crime_map/main/data.csv')
     df['DATE'] = pd.to_datetime(df['DATE'],errors='coerce')
     # df['DATE'] = df['DATE'].dt.tz_localize('UTC').dt.tz_convert('US/Pacific')
-
-
+    
+    
+    st.write(df.head(5))
     st.write(df.loc[df['DATE'].isnull()])
+
+    st.write(df.dtypes)
 
     st.title('Portland Crime Map')
     st.markdown('This app is a Streamlit dashboard that shows the number of crimes in Portland, Oregon.')
