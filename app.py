@@ -7,6 +7,7 @@ import plotly_express as px
 
 def main():
     df = pd.read_csv('https://raw.githubusercontent.com/aaroncolesmith/portland_crime_map/main/data.csv')
+    df['DATE'] = pd.to_datetime(df['DATE'],utc=True
 
     st.write(df.tail(5))
 
