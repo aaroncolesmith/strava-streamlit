@@ -24,8 +24,10 @@ def main():
     st.subheader('Crime Counts by Hour')
     st.write(df.groupby('HOUR').size().sort_values(ascending=False).head(10))
 
-    
 
+if __name__ == "__main__":
+    #execute
+    main()
 
 
 
