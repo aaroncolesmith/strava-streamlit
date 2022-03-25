@@ -24,7 +24,7 @@ def main():
     # Scatter plot of crime counts by hour
     # d = df.groupby([pd.Grouper(key='DATE', freq='H')]).size().to_frame('COUNT').reset_index()
     df['HOUR']=df['DATE'].dt.floor('h')
-    fig = px.scatter(df.groupby('HOUR').size().to_frame('COUNT'), x='HOUR', y='COUNT', log_x=True, log_y=True)
+    fig = px.scatter(df.groupby('HOUR').size().to_frame('COUNT').reset_index(), x='HOUR', y='COUNT', log_x=True, log_y=True)
     st.plotly_chart(fig)
     
 #data.groupby([pd.Grouper(key='DATE', freq='1D')]).size()
