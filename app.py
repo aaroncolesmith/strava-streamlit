@@ -1,44 +1,37 @@
+# Using GitHub Copilot to help built a quick Streamlit data app
+
 import streamlit as st
-
-PAGES = {
-"About": 'about',
-"Experience": 'experience',
-"Projects": 'projects',
-"Bovada": 'bovada'
-}
-
-pages = list(PAGES.keys())
-query_params = st.experimental_get_query_params()
-st.write(query_params)
-try:
-    query_option = query_params['page'][0]
-except:
-    st.experimental_set_query_params(page=pages[0])
-    query_params = st.experimental_get_query_params()
-    query_option = query_params['page'][0]
-st.write(query_params)
+import pandas as pd
 
 
-st.sidebar.title('Navigation')
-st.write(query_option)
+def main():
+    df = pd.read_csv('https://raw.githubusercontent.com/aaroncolesmith/portland_crime_map/main/data.csv')
+    st.title('Portland Crime Map')
+    st.markdown('This app is a Streamlit dashboard that shows the number of crimes in Portland, Oregon.')
+    st.markdown('**Data Source:** [https://data.pdx.gov/api/views/v8jb-q3jb/rows.csv](https://data.pdx.gov/api/views/v8jb-q3jb/rows.csv)')
+    st.markdown('**Data Description:** [https://data.pdx.gov/api/views/v8jb-q3jb/](https://data.pdx.gov/api/views/v8jb-q3jb/)')
+    st.markdown('**Data License:** [https://data.pdx.gov/api/views/v8jb-q3jb/](https://data.pdx.gov/api/views/v8jb-q3jb/)')
 
-if query_option not in pages:
-    st.write('nope')
-    if query_option.title() in pages:
-        query_option = query_option.title()
-    else:
-        query_option = pages[0]
-else:
-    st.write('yep')
-    page_selected = st.sidebar.selectbox('Pick option',
-                                            pages,
-                                            index=pages.index(query_option))
+    st.subheader('Crime Counts by Type')
+    st.write(df.groupby('CRIME').size().sort_values(ascending=False).head(10))
+
+    st.subheader('Crime Counts by Month')
+    st.write(df.groupby('MONTH').size().sort_values(ascending=False).head(10))
+
+    st.subheader('Crime Counts by Day of Week')
+    st.write(df.groupby('DAY_OF_WEEK').size().sort_values(ascending=False).head(10))
+
+    st.subheader('Crime Counts by Hour')
+    st.write(df.groupby('HOUR').size().sort_values(ascending=False).head(10))
+
+    
 
 
-st.write(page_selected)
-st.write(PAGES[page_selected])
-p = PAGES[page_selected]
 
-if page_selected:
-    st.experimental_set_query_params(page=page_selected)
+
+
+
+
+
+
 
