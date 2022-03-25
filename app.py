@@ -18,8 +18,6 @@ def main():
     st.subheader('Crime Counts by Type')
     st.write(df.groupby('CRIME').size().sort_values(ascending=False).head(10))
 
-    st.subheader('Crime Counts by Hour')
-    st.write(df.groupby('HOUR').size().sort_values(ascending=False).head(10))
 
     # Scatter plot of crime counts by hour
     d = df.groupby([pd.Grouper(key='DATE', freq='H'), 'HOUR']).size().reset_index()
