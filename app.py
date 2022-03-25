@@ -9,6 +9,9 @@ def main():
     df['DATE'] = pd.to_datetime(df['DATE'],errors='coerce')
     # df['DATE'] = df['DATE'].dt.tz_localize('UTC').dt.tz_convert('US/Pacific')
 
+
+    st.write(df.loc[df['DATE'].isnull()])
+
     st.title('Portland Crime Map')
     st.markdown('This app is a Streamlit dashboard that shows the number of crimes in Portland, Oregon.')
 
