@@ -13,8 +13,6 @@ def main():
     st.write(df.head(5))
     st.write(df.loc[df['DATE'].isnull()])
 
-    st.write(df.dtypes)
-
     st.title('Portland Crime Map')
     st.markdown('This app is a Streamlit dashboard that shows the number of crimes in Portland, Oregon.')
 
