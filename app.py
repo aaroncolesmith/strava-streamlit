@@ -34,7 +34,9 @@ def main():
     st.write(df['DATE'].min())
     st.write(type(df['DATE'].min()))
 
-    start_time = st.slider('Start Date', df['DATE'].min().to_pydatetime())
+    start_time = st.slider('Start Date', 
+        df['DATE'].min().to_pydatetime(),
+        format="MM/DD/YY - hh:mm")
 
     d=df.loc[df.DATE >= start_time].groupby(['LATITUDE','LONGITUDE']).agg({'CRIME': lambda x: ', '.join(x),
                                            'ID': 'size'}).reset_index()
