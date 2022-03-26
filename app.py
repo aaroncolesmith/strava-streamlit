@@ -3,6 +3,7 @@
 import streamlit as st
 import pandas as pd
 import plotly_express as px
+from datetime import datetime
 
 
 def main():
@@ -27,7 +28,9 @@ def main():
     fig = px.scatter(df.groupby('HOUR').size().to_frame('COUNT').reset_index(), x='HOUR', y='COUNT')
     st.plotly_chart(fig)
 
-    start_time = st.slider('Start Date', df['DATE'].min())
+    st.write(df['DATE'].min())
+
+    start_time = st.slider('Start Date', datetime(df['DATE'].min()))
 
     d=df.loc[df.DATE >= start_time].groupby(['LATITUDE','LONGITUDE']).agg({'CRIME': lambda x: ', '.join(x),
                                            'ID': 'size'}).reset_index()
