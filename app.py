@@ -10,6 +10,9 @@ def main():
     df = pd.read_csv('https://raw.githubusercontent.com/aaroncolesmith/portland_crime_map/main/data.csv')
     df['DATE'] = pd.to_datetime(df['DATE'],utc=True)
 
+    # Convert date from UTC to PST
+    df['DATE'] = df['DATE'].dt.tz_convert('US/Pacific')
+
 
     st.write(df.tail(5))
 
