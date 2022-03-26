@@ -15,9 +15,6 @@ def main():
     df['HOUR'] = df['DATE'].dt.floor('h')
     df['DAY'] = df['DATE'].dt.floor('d')
 
-
-    st.write(df.tail(5))
-
     st.title('Portland Crime Map')
     st.markdown('This app is a Streamlit dashboard that shows the number of crimes in Portland, Oregon.')
 
@@ -68,6 +65,7 @@ def main():
                         center=dict(lat=pd.to_numeric(d['LATITUDE'],errors='coerce').mean(), lon=pd.to_numeric(d['LONGITUDE'],errors='coerce').mean()), 
                         zoom=10,
                         opacity=.75, 
+                        height=800,
                         hover_data=['CRIME','LAST_DATE'],
                         mapbox_style="stamen-terrain")
     st.plotly_chart(fig)
@@ -80,6 +78,7 @@ def main():
                             size='COUNT',
                             color_discrete_sequence=["fuchsia"],
                             opacity=.8, 
+                            center=dict(lat=pd.to_numeric(d['LATITUDE'],errors='coerce').mean(), lon=pd.to_numeric(d['LONGITUDE'],errors='coerce').mean()),
                             zoom=10, 
                             height=800)
     fig.update_layout(mapbox_style="open-street-map")
@@ -112,6 +111,7 @@ def main():
                             animation_frame=d['DAY'].astype('str'),
                             color_discrete_sequence=["fuchsia"],
                             opacity=.6,
+                            center=dict(lat=pd.to_numeric(d['LATITUDE'],errors='coerce').mean(), lon=pd.to_numeric(d['LONGITUDE'],errors='coerce').mean()),
                             size_max=100, 
                             zoom=10, 
                             height=800)
@@ -126,9 +126,13 @@ def main():
                             hover_data=['ADDRESS','LAST_DATE','COUNT'],
                             animation_frame=d['DAY'].astype('str'),
                             zoom=10, 
+                            center=dict(lat=pd.to_numeric(d['LATITUDE'],errors='coerce').mean(), lon=pd.to_numeric(d['LONGITUDE'],errors='coerce').mean()),
                             height=800)
     fig.update_layout(mapbox_style="stamen-terrain")
     st.plotly_chart(fig)
+
+    st.write(df.tail(5))
+
 
 
 
