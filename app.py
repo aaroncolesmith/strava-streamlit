@@ -46,7 +46,7 @@ def main():
                         center=dict(lat=pd.to_numeric(d['LATITUDE'],errors='coerce').mean(), lon=pd.to_numeric(d['LONGITUDE'],errors='coerce').mean()), 
                         zoom=10,
                         opacity=.75, 
-                        hover_data=['CRIME']
+                        hover_data=['CRIME'],
                         mapbox_style="stamen-terrain")
     st.plotly_chart(fig)
 
