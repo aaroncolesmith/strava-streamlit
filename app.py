@@ -28,6 +28,8 @@ def main():
     fig = px.scatter(df.groupby('HOUR').size().to_frame('COUNT').reset_index(), x='HOUR', y='COUNT')
     st.plotly_chart(fig)
 
+    df['DATE'] = [datetime.fromtimestamp(x) for x in df['DATE']]
+
     st.write(df['DATE'].min())
 
     start_time = st.slider(
