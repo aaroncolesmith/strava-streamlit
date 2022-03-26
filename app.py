@@ -33,7 +33,8 @@ def main():
 
 
     # Stacked bar chart over by by crime type
-    fig = px.bar(df.groupby(['CRIME']).size().to_frame('COUNT').reset_index(), x='CRIME', y='COUNT')
+    fig = px.bar(df.groupby(['HOUR','CRIME']).size().to_frame('COUNT').reset_index(), x='HOUR', y='COUNT', color='CRIME')
+    st.plotly_chart(fig)
 
     start_time = st.slider('Start Date', 
         df['DATE'].min().to_pydatetime(),
