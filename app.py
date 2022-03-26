@@ -12,6 +12,7 @@ def main():
 
     # Convert date from UTC to PST
     df['DATE'] = df['DATE'].dt.tz_convert('US/Pacific')
+    df['HOUR'] = df['DATE'].dt.floor('h')
 
 
     st.write(df.tail(5))
@@ -26,16 +27,13 @@ def main():
 
 
     # Scatter plot of crime counts by hour
-    # d = df.groupby([pd.Grouper(key='DATE', freq='H')]).size().to_frame('COUNT').reset_index()
     df['HOUR']=df['DATE'].dt.floor('h')
     fig = px.scatter(df.groupby('HOUR').size().to_frame('COUNT').reset_index(), x='HOUR', y='COUNT')
     st.plotly_chart(fig)
 
-    # df['DATE'] = [datetime.fromtimestamp(x) for x in df['DATE']]
-    # df['DATE'] = pd.to_datetime(df.DATE).dt.tz_localize(None)
 
-    st.write(df['DATE'].min())
-    st.write(type(df['DATE'].min()))
+    # Stacked bar chart over by by crime type
+    fig = px.bar(df.groupby(['CRIME']).size().to_frame('COUNT').reset_index(), x='CRIME', y='COUNT')
 
     start_time = st.slider('Start Date', 
         df['DATE'].min().to_pydatetime(),
