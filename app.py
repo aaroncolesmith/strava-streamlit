@@ -29,6 +29,7 @@ def main():
     st.plotly_chart(fig)
 
     # df['DATE'] = [datetime.fromtimestamp(x) for x in df['DATE']]
+    df['DATE'] = pd.to_datetime(df.DATE).dt.tz_localize(None)
 
     st.write(df['DATE'].min())
     st.write(type(df['DATE'].min()))
@@ -43,6 +44,9 @@ def main():
 
     d=df.loc[df.DATE >= start_time].groupby(['LATITUDE','LONGITUDE']).agg({'CRIME': lambda x: ', '.join(x),
                                            'ID': 'size'}).reset_index()
+
+    # d=df.groupby(['LATITUDE','LONGITUDE']).agg({'CRIME': lambda x: ', '.join(x),
+    #                                        'ID': 'size'}).reset_index()
 
     d.columns = ['LATITUDE','LONGITUDE','CRIME','COUNT']
     d['CRIME'] = d['CRIME'].str.wrap(50)
