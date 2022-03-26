@@ -26,8 +26,30 @@ def main():
     df['HOUR']=df['DATE'].dt.floor('h')
     fig = px.scatter(df.groupby('HOUR').size().to_frame('COUNT').reset_index(), x='HOUR', y='COUNT')
     st.plotly_chart(fig)
-    
-#data.groupby([pd.Grouper(key='DATE', freq='1D')]).size()
+
+    d=df.groupby(['LATITUDE','LONGITUDE']).agg({'CRIME': lambda x: ', '.join(x),
+                                           'ID': 'size'}).reset_index()
+    d.columns = ['LATITUDE','LONGITUDE','CRIME','COUNT']
+    d['CRIME'] = d['CRIME'].str.wrap(50)
+    d['CRIME'] = d['CRIME'].apply(lambda x: x.replace('\n', '<br>'))
+
+    d['LAT_LON'] = d['LATITUDE'].astype('str') + ', ' +  d['LONGITUDE'].astype('str')
+
+    # if the crime desciption is greater than 500 characters, cut it off at 500 characters
+    d['CRIME'] = d['CRIME'].apply(lambda x: x[:500] + '...' if len(x) > 500 else x)
+
+    fig = px.density_mapbox(d, 
+                        lat='LATITUDE', 
+                        lon='LONGITUDE', 
+                        z='COUNT',
+                        radius=50,
+                        center=dict(lat=pd.to_numeric(d['LATITUDE'],errors='coerce').mean(), lon=pd.to_numeric(d['LONGITUDE'],errors='coerce').mean()), 
+                        zoom=10,
+                        opacity=.75, 
+                        hover_data=['CRIME']
+                        mapbox_style="stamen-terrain")
+    st.plotly_chart(fig)
+
 
 if __name__ == "__main__":
     #execute
