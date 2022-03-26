@@ -34,12 +34,6 @@ def main():
     st.write(df['DATE'].min())
     st.write(type(df['DATE'].min()))
 
-    start_time = st.slider(
-     "When do you start?",
-     value=datetime(2020, 1, 1, 9, 30),
-     format="MM/DD/YY - hh:mm")
-    st.write("Start time:", start_time)
-
     start_time = st.slider('Start Date', datetime(df['DATE'].min()))
 
     d=df.loc[df.DATE >= start_time].groupby(['LATITUDE','LONGITUDE']).agg({'CRIME': lambda x: ', '.join(x),
