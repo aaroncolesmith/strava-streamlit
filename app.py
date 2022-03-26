@@ -27,9 +27,11 @@ def main():
     fig = px.scatter(df.groupby('HOUR').size().to_frame('COUNT').reset_index(), x='HOUR', y='COUNT')
     st.plotly_chart(fig)
 
-    start_time = st.slider('Start Date', df['DATE'].min(), format="MM/DD/YY - hh:mm")
+    start_time = st.slider('Start Date', df['DATE'].min())
+
     d=df.loc[df.DATE >= start_time].groupby(['LATITUDE','LONGITUDE']).agg({'CRIME': lambda x: ', '.join(x),
                                            'ID': 'size'}).reset_index()
+
     d.columns = ['LATITUDE','LONGITUDE','CRIME','COUNT']
     d['CRIME'] = d['CRIME'].str.wrap(50)
     d['CRIME'] = d['CRIME'].apply(lambda x: x.replace('\n', '<br>'))
