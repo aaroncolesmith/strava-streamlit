@@ -36,15 +36,15 @@ def main():
     fig = px.bar(df.groupby(['HOUR','CRIME']).size().to_frame('COUNT').reset_index(), x='HOUR', y='COUNT', color='CRIME')
     st.plotly_chart(fig)
 
-    start_time = st.slider('Start Date', 
-        df['DATE'].min().to_pydatetime(),
-        format="MM/DD/YY - hh:mm")
+    # start_time = st.slider('Start Date', 
+    #     df['DATE'].min().to_pydatetime(),
+    #     format="MM/DD/YY - hh:mm")
 
-    d=df.loc[df.DATE >= start_time].groupby(['LATITUDE','LONGITUDE']).agg({'CRIME': lambda x: ', '.join(x),
-                                           'ID': 'size'}).reset_index()
-
-    # d=df.groupby(['LATITUDE','LONGITUDE']).agg({'CRIME': lambda x: ', '.join(x),
+    # d=df.loc[df.DATE >= start_time].groupby(['LATITUDE','LONGITUDE']).agg({'CRIME': lambda x: ', '.join(x),
     #                                        'ID': 'size'}).reset_index()
+
+    d=df.groupby(['LATITUDE','LONGITUDE']).agg({'CRIME': lambda x: ', '.join(x),
+                                           'ID': 'size'}).reset_index()
 
     d.columns = ['LATITUDE','LONGITUDE','CRIME','COUNT']
     d['CRIME'] = d['CRIME'].str.wrap(50)
@@ -59,6 +59,8 @@ def main():
                         lat='LATITUDE', 
                         lon='LONGITUDE', 
                         z='COUNT',
+                        animation_group='LAT_LON',
+                        animation_frame='HOUR',
                         radius=50,
                         center=dict(lat=pd.to_numeric(d['LATITUDE'],errors='coerce').mean(), lon=pd.to_numeric(d['LONGITUDE'],errors='coerce').mean()), 
                         zoom=10,
