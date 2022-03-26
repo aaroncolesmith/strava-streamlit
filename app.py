@@ -43,10 +43,10 @@ def main():
     # d=df.loc[df.DATE >= start_time].groupby(['LATITUDE','LONGITUDE']).agg({'CRIME': lambda x: ', '.join(x),
     #                                        'ID': 'size'}).reset_index()
 
-    d=df.groupby(['LATITUDE','LONGITUDE']).agg({'CRIME': lambda x: ', '.join(x),
+    d=df.groupby(['LATITUDE','LONGITUDE','HOUR']).agg({'CRIME': lambda x: ', '.join(x),
                                            'ID': 'size'}).reset_index()
 
-    d.columns = ['LATITUDE','LONGITUDE','CRIME','COUNT']
+    d.columns = ['LATITUDE','LONGITUDE','HOUR','CRIME','COUNT']
     d['CRIME'] = d['CRIME'].str.wrap(50)
     d['CRIME'] = d['CRIME'].apply(lambda x: x.replace('\n', '<br>'))
 
