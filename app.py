@@ -18,7 +18,7 @@ def main():
     st.title('Portland Crime Map')
     st.markdown('This app is a Streamlit dashboard that shows the number of crimes in Portland, Oregon.')
 
-    st.markdown('Updated as of: ' + str(df['DATE'].max()))
+    st.markdown('Updated as of: ' + str(df['DATE'].max().strftime('%Y-%m-%d %H:%M')))
 
     st.subheader('Crime Counts by Type')
     st.write(df.groupby('CRIME').size().sort_values(ascending=False).head(10))
