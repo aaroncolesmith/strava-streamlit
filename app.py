@@ -50,7 +50,7 @@ def main():
     d['LONGITUDE'] = pd.to_numeric(d['LONGITUDE'])
     d['CRIME'] = d['CRIME'].str.wrap(50)
     d['CRIME'] = d['CRIME'].apply(lambda x: x.replace('\n', '<br>'))
-    d['COUNT_SCALED'] = d['COUNT']*5
+    d['COUNT_SCALED'] = d['COUNT']*3
 
     d['LAT_LON'] = d['LATITUDE'].astype('str') + ', ' +  d['LONGITUDE'].astype('str')
 
@@ -78,8 +78,8 @@ def main():
                             hover_data=['ADDRESS','COUNT','LAST_DATE'],
                             size='COUNT_SCALED',
                             color_discrete_sequence=["fuchsia"],
-                            opacity=.8,
-                            size_max=80, 
+                            opacity=.6,
+                            size_max=50, 
                             center=dict(lat=pd.to_numeric(d['LATITUDE'],errors='coerce').mean(), lon=pd.to_numeric(d['LONGITUDE'],errors='coerce').mean()),
                             zoom=10, 
                             height=800)
@@ -103,6 +103,18 @@ def main():
 
     d=d.sort_values('DAY',ascending=True).reset_index(drop=True)
 
+    fig = px.density_mapbox(d, 
+                            lat='LATITUDE', 
+                            lon='LONGITUDE', 
+                            hover_name='CRIME',
+                            hover_data=['ADDRESS','LAST_DATE','COUNT'],
+                            animation_frame=d['DAY'].astype('str'),
+                            zoom=10, 
+                            center=dict(lat=pd.to_numeric(d['LATITUDE'],errors='coerce').mean(), lon=pd.to_numeric(d['LONGITUDE'],errors='coerce').mean()),
+                            height=800)
+    fig.update_layout(mapbox_style="stamen-terrain")
+    st.plotly_chart(fig)
+    
     fig = px.scatter_mapbox(d, 
                             lat='LATITUDE', 
                             lon='LONGITUDE', 
@@ -121,17 +133,7 @@ def main():
     st.plotly_chart(fig)
 
 
-    fig = px.density_mapbox(d, 
-                            lat='LATITUDE', 
-                            lon='LONGITUDE', 
-                            hover_name='CRIME',
-                            hover_data=['ADDRESS','LAST_DATE','COUNT'],
-                            animation_frame=d['DAY'].astype('str'),
-                            zoom=10, 
-                            center=dict(lat=pd.to_numeric(d['LATITUDE'],errors='coerce').mean(), lon=pd.to_numeric(d['LONGITUDE'],errors='coerce').mean()),
-                            height=800)
-    fig.update_layout(mapbox_style="stamen-terrain")
-    st.plotly_chart(fig)
+
 
     st.write(df.tail(5))
 
