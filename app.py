@@ -50,6 +50,7 @@ def main():
     d['LONGITUDE'] = pd.to_numeric(d['LONGITUDE'])
     d['CRIME'] = d['CRIME'].str.wrap(50)
     d['CRIME'] = d['CRIME'].apply(lambda x: x.replace('\n', '<br>'))
+    d['COUNT_SCALED'] = d['COUNT']*5
 
     d['LAT_LON'] = d['LATITUDE'].astype('str') + ', ' +  d['LONGITUDE'].astype('str')
 
@@ -74,8 +75,8 @@ def main():
                             lat='LATITUDE', 
                             lon='LONGITUDE', 
                             hover_name='CRIME',
-                            hover_data=['ADDRESS','LAST_DATE'],
-                            size='COUNT',
+                            hover_data=['ADDRESS','COUNT','LAST_DATE'],
+                            size='COUNT_SCALED',
                             color_discrete_sequence=["fuchsia"],
                             opacity=.8, 
                             center=dict(lat=pd.to_numeric(d['LATITUDE'],errors='coerce').mean(), lon=pd.to_numeric(d['LONGITUDE'],errors='coerce').mean()),
