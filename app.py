@@ -78,7 +78,8 @@ def main():
                             hover_data=['ADDRESS','COUNT','LAST_DATE'],
                             size='COUNT_SCALED',
                             color_discrete_sequence=["fuchsia"],
-                            opacity=.8, 
+                            opacity=.8,
+                            size_max=80, 
                             center=dict(lat=pd.to_numeric(d['LATITUDE'],errors='coerce').mean(), lon=pd.to_numeric(d['LONGITUDE'],errors='coerce').mean()),
                             zoom=10, 
                             height=800)
