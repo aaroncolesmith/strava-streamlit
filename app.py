@@ -16,7 +16,7 @@ def density_map_agg(d):
                         center=dict(lat=pd.to_numeric(d['LATITUDE'],errors='coerce').mean(), lon=pd.to_numeric(d['LONGITUDE'],errors='coerce').mean()), 
                         zoom=10,
                         opacity=.75, 
-                        height=800,
+                        height=600,
                         hover_data=['CRIME','LAST_DATE'],
                         mapbox_style="stamen-terrain")
     st.plotly_chart(fig)
@@ -31,7 +31,7 @@ def density_map_day(d):
                             animation_frame=d['DAY'].astype('str'),
                             zoom=10, 
                             center=dict(lat=pd.to_numeric(d['LATITUDE'],errors='coerce').mean(), lon=pd.to_numeric(d['LONGITUDE'],errors='coerce').mean()),
-                            height=800)
+                            height=600)
     fig.update_layout(mapbox_style="stamen-terrain")
     fig['layout']['sliders'][0]['currentvalue']['prefix'] = 'Date: '
     st.plotly_chart(fig)
@@ -49,7 +49,7 @@ def scatter_map_agg(d):
                             size_max=50, 
                             center=dict(lat=pd.to_numeric(d['LATITUDE'],errors='coerce').mean(), lon=pd.to_numeric(d['LONGITUDE'],errors='coerce').mean()),
                             zoom=10, 
-                            height=800)
+                            height=600)
     fig.update_layout(mapbox_style="open-street-map")
     st.plotly_chart(fig)
 
@@ -68,7 +68,7 @@ def scatter_map_day(d):
                             center=dict(lat=pd.to_numeric(d['LATITUDE'],errors='coerce').mean(), lon=pd.to_numeric(d['LONGITUDE'],errors='coerce').mean()),
                             size_max=100, 
                             zoom=10, 
-                            height=800)
+                            height=600)
     fig.update_layout(mapbox_style="stamen-terrain")
     fig['layout']['sliders'][0]['currentvalue']['prefix'] = 'Date: '
     st.plotly_chart(fig)
