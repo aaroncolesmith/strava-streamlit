@@ -127,12 +127,12 @@ def main():
     c1, c2 = st.columns(2)
 
     # Selector to view aggregate data or by day
-    view_type = c1.selectbox('View by', ['Day', 'Aggregate'])
+    view_type = c1.selectbox('View by', ['Day', 'All-Time'])
 
     # Selector to view density_map or scatter_map
     map_type = c2.selectbox('Map Type', ['Scatter Map', 'Density Map'])
 
-    if view_type == 'Aggregate':
+    if view_type == 'All-Time':
         d=group_data_agg(df)
         if map_type == 'Density Map':
             density_map_agg(d)
