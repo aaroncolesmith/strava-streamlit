@@ -35,7 +35,7 @@ def main():
     fig = px.bar(df.groupby(['HOUR','CRIME']).size().to_frame('COUNT').reset_index(), x='HOUR', y='COUNT', color='CRIME')
     st.plotly_chart(fig)
 
-    d=df.groupby(['LATITUDE','LONGITUDE','ADDRESS']).agg({'DATE_CRIME': lambda x: ', '.join(x),
+    d=df.groupby(['LATITUDE','LONGITUDE','ADDRESS']).agg({'DATE_CRIME': lambda x: '<br>'.join(x),
                                             'ID': 'size',
                                             'DATE':'max'}).reset_index()
 
@@ -78,7 +78,7 @@ def main():
     fig.update_layout(mapbox_style="open-street-map")
     st.plotly_chart(fig)
 
-    d=df.groupby(['LATITUDE','LONGITUDE','ADDRESS','DAY']).agg({'DATE_CRIME': lambda x: ', '.join(x),
+    d=df.groupby(['LATITUDE','LONGITUDE','ADDRESS','DAY']).agg({'DATE_CRIME': lambda x: '<br>'.join(x),
                                             'ID': 'size',
                                             'DATE':'max'}).reset_index()
     d.columns = ['LATITUDE','LONGITUDE','ADDRESS','DAY','CRIME','COUNT','LAST_DATE']
