@@ -82,7 +82,7 @@ def main():
                             zoom=10, 
                             height=800)
     fig.update_layout(mapbox_style="open-street-map")
-    fig.show()
+    st.plotly_chart(fig)
 
     d=df.groupby(['LATITUDE','LONGITUDE','ADDRESS','DAY']).agg({'CRIME': lambda x: ', '.join(x),
                                             'ID': 'size',
