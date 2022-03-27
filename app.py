@@ -15,7 +15,7 @@ def density_map_agg(d):
                         radius=50,
                         center=dict(lat=pd.to_numeric(d['LATITUDE'],errors='coerce').mean(), lon=pd.to_numeric(d['LONGITUDE'],errors='coerce').mean()), 
                         zoom=10,
-                        opacity=.75, 
+                        opacity=.90, 
                         height=600,
                         hover_data=['CRIME','LAST_DATE'],
                         mapbox_style="stamen-terrain")
@@ -29,7 +29,9 @@ def density_map_day(d):
                             hover_name='CRIME',
                             hover_data=['ADDRESS','LAST_DATE','COUNT'],
                             animation_frame=d['DAY'].astype('str'),
-                            zoom=10, 
+                            zoom=10,
+                            radius=50,
+                            opacity=.90, 
                             center=dict(lat=pd.to_numeric(d['LATITUDE'],errors='coerce').mean(), lon=pd.to_numeric(d['LONGITUDE'],errors='coerce').mean()),
                             height=600)
     fig.update_layout(mapbox_style="stamen-terrain")
