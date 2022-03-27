@@ -14,7 +14,7 @@ def main():
     df['DATE'] = df['DATE'].dt.tz_convert('US/Pacific')
     df['HOUR'] = df['DATE'].dt.floor('h')
     df['DAY'] = df['DATE'].dt.floor('d')
-    df['DATE_CRIME'] = df['DATE'].dt.strftime('%-m-%-d %-I:%M%p').astype('str') + ' - ' + df['CRIME']
+    df['DATE_CRIME'] = df['DATE'].dt.strftime('%-m/%-d %-I:%M%p').astype('str') + ' - ' + df['CRIME']
 
     st.title('Portland Crime Map')
     st.markdown('This app is a Streamlit dashboard that shows the number of crimes in Portland, Oregon.')
