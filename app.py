@@ -12,7 +12,7 @@ def density_map_agg(d):
                         lat='LATITUDE', 
                         lon='LONGITUDE', 
                         z='COUNT',
-                        radius=50,
+                        radius=25,
                         center=dict(lat=pd.to_numeric(d['LATITUDE'],errors='coerce').mean(), lon=pd.to_numeric(d['LONGITUDE'],errors='coerce').mean()), 
                         zoom=10,
                         opacity=.90, 
@@ -30,7 +30,7 @@ def density_map_day(d):
                             hover_data=['ADDRESS','LAST_DATE','COUNT'],
                             animation_frame=d['DAY'].astype('str'),
                             zoom=10,
-                            radius=50,
+                            radius=25,
                             opacity=.90, 
                             center=dict(lat=pd.to_numeric(d['LATITUDE'],errors='coerce').mean(), lon=pd.to_numeric(d['LONGITUDE'],errors='coerce').mean()),
                             height=600)
