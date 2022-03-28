@@ -4,6 +4,7 @@ import streamlit as st
 import pandas as pd
 import plotly_express as px
 from datetime import datetime
+import plotly.graph_objects as go
 
 
 def density_map_agg(d):
@@ -110,7 +111,47 @@ def group_data_day(df):
 
     return d
 
-def main():
+def crime_cnt_rolling_avg(df):
+    df2=df.groupby('HOUR').size().to_frame('CRIME_CNT').reset_index()
+    df2['ROLLING_24'] = df2['CRIME_CNT'].rolling(window=24).mean()
+
+    fig=go.Figure()
+    fig.add_trace(
+        go.Scatter(x=df2.HOUR,
+                y=df2.ROLLING_24,
+                name='Rolling Avg',
+                mode='lines',
+                line_shape='spline',
+                marker_color='#626EF6',
+                marker=dict(
+                    size=4,
+                    line=dict(
+                        width=1,
+                        color='#1320B2'
+                        )
+                    )
+                )
+        )
+
+    fig.add_trace(
+        go.Scatter(x=df2.HOUR,
+                y=df2.CRIME_CNT,
+                name='Crime Count',
+                mode='markers',
+                marker_color='#626EF6',
+                opacity=.5,
+                marker=dict(
+                    size=8,
+                    line=dict(
+                        width=1,
+                        color='#1320B2'
+                        )
+                    )
+                )
+        )
+    st.plotly_chart(fig)
+
+def app():
     df = pd.read_csv('https://raw.githubusercontent.com/aaroncolesmith/portland_crime_map/main/data.csv')
     df['DATE'] = pd.to_datetime(df['DATE'],utc=True)
 
@@ -149,9 +190,11 @@ def main():
             scatter_map_day(d)
 
     # Scatter plot of crime counts by hour
-    df['HOUR']=df['DATE'].dt.floor('h')
-    fig = px.scatter(df.groupby('HOUR').size().to_frame('COUNT').reset_index(), x='HOUR', y='COUNT')
-    st.plotly_chart(fig)
+    # df['HOUR']=df['DATE'].dt.floor('h')
+    # fig = px.scatter(df.groupby('HOUR').size().to_frame('COUNT').reset_index(), x='HOUR', y='COUNT')
+    # st.plotly_chart(fig)
+
+    crime_cnt_rolling_avg(df)
 
 
     # Stacked bar chart over by by crime type
@@ -165,7 +208,7 @@ def main():
 
 if __name__ == "__main__":
     #execute
-    main()
+    app()
 
 
 
