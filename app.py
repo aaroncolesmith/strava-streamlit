@@ -10,6 +10,7 @@ def density_map_agg(d):
                         lat='LATITUDE', 
                         lon='LONGITUDE', 
                         z='COUNT',
+                        hover_name='CRIME',
                         radius=25,
                         center=dict(lat=pd.to_numeric(d['LATITUDE'],errors='coerce').mean(), lon=pd.to_numeric(d['LONGITUDE'],errors='coerce').mean()), 
                         zoom=10,
